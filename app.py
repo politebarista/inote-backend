@@ -17,6 +17,7 @@ def index():
 
 @app.route('/getNotes', methods=['GET'])
 def get_notes():
+    connection.commit()
     cursos = connection.cursor(dictionary=True)
     query = "select * from notes"
     cursos.execute(query)
