@@ -17,7 +17,7 @@ def index():
 
 @app.route('/getNotes', methods=['GET'])
 def get_notes():
-    cursos = connection.cursor() # шляпа какая-то, заметки не обнавляются до рестрарта сервака
+    cursos = connection.cursor(dictionary=True)
     query = "select * from notes"
     cursos.execute(query)
     result = cursos.fetchall()
@@ -28,7 +28,7 @@ def get_notes():
 
 @app.route('/deleteNote', methods=['GET'])
 def delete_note():
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
     args = request.args
     noteId = args.get('id')
     query = "DELETE FROM notes WHERE id = " + noteId
@@ -40,7 +40,7 @@ def delete_note():
 
 @app.route('/addNote', methods=['GET'])
 def add_note():
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
     args = request.args
     title = args.get('title')
     description = args.get('description')
