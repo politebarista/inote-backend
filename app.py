@@ -31,23 +31,24 @@ def delete_note():
     cursor = connection.cursor()
     args = request.args
     noteId = args.get('id')
-    query = "delete from notes where id = " + noteId
+    query = "DELETE FROM notes WHERE id = " + noteId
     cursor.execute(query)
     connection.commit()
-    result = cursor.fetchone()
-    jsonedResult = jsonify(result)
-    return jsonedResult
+    cursor.close()
+    return 'delete complete'
 
 
 @app.route('/addNote', methods=['GET'])
 def add_note():
     cursor = connection.cursor()
-    query = "INSERT INTO notes(title, description) VALUES ('test','just a test');"
+    args = request.args
+    title = args.get('title')
+    description = args.get('description')
+    query = "INSERT INTO notes(title, description) VALUES ('" + title + "','" + description + "');"
     cursor.execute(query)
-    some = cursor.lastrowid
     connection.commit()
     cursor.close()
-    return 'hello'
+    return 'add complete'
 
 
 if __name__ == '__main__':
