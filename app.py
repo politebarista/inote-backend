@@ -29,7 +29,7 @@ def get_notes():
 
 @app.route('/deleteNote', methods=['GET'])
 def delete_note():
-    cursor = connection.cursor(dictionary=True)
+    cursor = connection.cursor()
     args = request.args
     noteId = args.get('id')
     query = "DELETE FROM notes WHERE id = " + noteId
@@ -41,7 +41,7 @@ def delete_note():
 
 @app.route('/addNote', methods=['GET'])
 def add_note():
-    cursor = connection.cursor(dictionary=True)
+    cursor = connection.cursor()
     args = request.args
     title = args.get('title')
     description = args.get('description')
