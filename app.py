@@ -27,15 +27,15 @@ def get_notes():
     return jsonedResult
 
 
-@app.route('/deleteNote', methods=['GET'])
+@app.route('/deleteNote', methods=['POST'])
 def delete_note():
     cursor = connection.cursor()
-    args = request.args
-    noteId = args.get('id')
-    query = "DELETE FROM notes WHERE id = " + noteId
+    noteId = request.json['id']
+    query = "DELETE FROM notes WHERE id = " + toString()
     cursor.execute(query)
     connection.commit()
     cursor.close()
+    print('delete testing')
     return 'delete complete'
 
 
