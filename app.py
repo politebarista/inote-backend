@@ -30,12 +30,11 @@ def get_notes():
 @app.route('/deleteNote', methods=['POST'])
 def delete_note():
     cursor = connection.cursor()
-    noteId = request.json['id']
-    query = "DELETE FROM notes WHERE id = " + toString()
+    noteId = str(request.json['id'])
+    query = "DELETE FROM notes WHERE id = " + noteId
     cursor.execute(query)
     connection.commit()
     cursor.close()
-    print('delete testing')
     return 'delete complete'
 
 
