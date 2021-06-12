@@ -38,12 +38,11 @@ def delete_note():
     return 'delete complete'
 
 
-@app.route('/addNote', methods=['GET'])
+@app.route('/addNote', methods=['POST'])
 def add_note():
     cursor = connection.cursor()
-    args = request.args
-    title = args.get('title')
-    description = args.get('description')
+    title = request.json['title']
+    description = request.json['description']
     query = "INSERT INTO notes(title, description) VALUES ('" + title + "','" + description + "');"
     cursor.execute(query)
     connection.commit()
