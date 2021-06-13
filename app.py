@@ -64,5 +64,18 @@ def add_note():
     return 'add complete'
 
 
+@app.route('/editNote', methods=['POST'])
+def edit_note():
+    cursor = connection.cursor()
+    id = str(request.json['id'])
+    title = request.json['title']
+    description = request.json['description']
+    query = "UPDATE notes SET title = '" + title + "', description = '" + description + "' WHERE id = " + id + ";"
+    cursor.execute(query)
+    connection.commit()
+    cursor.close()
+    return 'edit complete'
+
+
 if __name__ == '__main__':
     app.run()
